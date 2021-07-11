@@ -41,24 +41,31 @@ optimizers = {
 Поэтому в нашем случае для генератора и дискриминатора будем использовать параметр **from_logits=True**<br>
 ```loss = {
   "generator_loss_fn": tf.keras.losses.BinaryCrossentropy(from_logits=False), 
-  "discriminator_loss_fn": tf.keras.losses.BinaryCrossentropy(from_logits=False)}```<br>
+  "discriminator_loss_fn": tf.keras.losses.BinaryCrossentropy(from_logits=False)}
+ ```
+  
 Для передачи в класс собственной функции потерь, можно передать предварительно определенную функцию таким образом: **"custom_loss_fn": my_loss_fn()**<br>
 **Метрики передаем также в виде словаря.**<br>
 В словаре можно в качестве значения передать стандартную **TensorFlow** метрику, а можно и свою собственную.<br>
 Для собственных метрик, если требуется контроль метрик только для батча, можно обойтись просто определением функции<br>
-```def metric_function(y_true, y_pred):
+```
+def metric_function(y_true, y_pred):
     ...
-    metric_value =```<br>
+    metric_value =
+```
 Если требуется контроль метрик по всему датасету (то есть, за эпоху), собственную метрику нужно определять на основе класса<br>
 ```class MetricLayer(tf.keras.metrics.Metric)
     def __init__(self, name="MetricLayer", **kwargs):
         super(MetricLayer, self).__init__(name=name, **kwargs)
-        self.metric = self.add_weight(name="Metric", initializer="zeros") ```<br>
-и далее, определяем переменные треккеров:<br>```
+        self.metric = self.add_weight(name="Metric", initializer="zeros")
+ ```
+и далее, определяем переменные треккеров:<br>
+```
 loss_tracker = tf.keras.metrics.Mean(name="loss")
 mae = tf.keras.metrics.MeanAbsoluteError(name="mae")
-metrics = {"generator_loss": metric_fn, "discriminator_loss": tf.keras.metrics.Accuracy()}```
-###Фаза FIT подробно откомментирована в коде
+metrics = {"generator_loss": metric_fn, "discriminator_loss": tf.keras.metrics.Accuracy()}
+```
+### Фаза FIT подробно откомментирована в коде
 **Пример инициализации своего класса:**
 ```gan = MyGan(image_shape=(28,28,1), generator_type='strong', disciminator_type='weak', class_vector_shape, latent_dim=100)```<br>
 **latent_dim** - размер вектора скрытого пространства, из которого создается изображение генератором
