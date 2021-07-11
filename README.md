@@ -1,4 +1,4 @@
-###Модель GAN на основе классов TensorFlow.
+### Модель GAN на основе классов TensorFlow.
 За основу была взята [документация TensorFlow](https://www.tensorflow.org/guide/keras/customizing_what_happens_in_fit#wrapping_up_an_end-to-end_gan_example).<br>
 Но с изменениями. Целью было разобраться в построении моделей на классах TensorFlow. Поэтому код обильно комментирован.
 
